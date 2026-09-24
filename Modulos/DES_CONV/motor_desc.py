@@ -8,6 +8,12 @@ import Modulos.UI.util_imagenes as util_imagenes
 # ==========================================================
 # ZONA 1: CONFIGURACIÓN Y RUTAS (se ejecuta al importar)
 # ==========================================================
+
+if getattr(sys, "frozen", False):
+    RUTA_BASE = os.path.dirname(sys.executable)   
+else:
+    RUTA_BASE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 Url = ""
 carpetas = ["music", "video"]
 
