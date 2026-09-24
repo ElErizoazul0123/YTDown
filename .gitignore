@@ -1,0 +1,32 @@
+# ===== Python: caché y entornos =====
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# ===== PyInstaller =====
+build/
+dist/
+*.spec
+
+# ===== Datos de ejecución de la app =====
+descargas/
+
+# ===== Binarios de FFmpeg (pesados; se instalan con setup_ffmpeg.bat) =====
+ffmpeg/
+
+# ===== IDEs =====
+.vscode/
+.idea/
+
+# ===== Temporales y logs =====
+*.log
+*.tmp
+*.temp
+*.bak
+
+# ===== Sistema operativo =====
+.DS_Store
+Thumbs.db
+Desktop.ini

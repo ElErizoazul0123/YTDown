@@ -1,0 +1,10 @@
+# Dependencias principales de YTdownload
+yt-dlp>=2024.0.0
+Pillow>=10.0.0
+requests>=2.31.0
+
+# Para descargas de TikTok (impersonación de navegador)
+curl_cffi>=0.7.0
+
+# Opcional: para mejor rendimiento y debugging
+# tqdm>=4.66.0  # Barras de progreso en consola (no necesario si usas UI)
