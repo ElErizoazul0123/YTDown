@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import font
 import tkinter.ttk as ttk
 import tkinter.messagebox as messagebox
+import webbrowser
 from PIL import Image, ImageTk
 from config import CONS_COLOR_BARRA_SUPERIOR, CONS_COLOR_BARRA_IZQUIERDA, CONS_COLOR_BARRA_DERECHA, CONS_COLOR_BOTON_ACTUAL, CONS_COLOR_BOTON_DESACTIVADO
 import Modulos.UI.util_imagenes as util_imagenes
@@ -28,7 +29,7 @@ class ventana_principal(tk.Tk):
         self.menu_lateral()
         self.cuerpo_principal()
         self.elementos_barra_superior()
-        self.elementos_menu_lateral()
+#        self.elementos_menu_lateral()
         self.elementos_cuerpo_principal()
         self.prev_info_descarga()
         self.cola_de_descarga()
@@ -38,7 +39,7 @@ class ventana_principal(tk.Tk):
     # ================================================================
     def configurar_ventana(self):
         """Configura título, icono, tamaño y centrado"""
-        self.title("YTdownload")
+        self.title("YTDown")
         self.iconbitmap("Recursos/imagenes/arch-linux.ico")
         w, h = 1024, 600
         util_ventanas.centrar_ventana(self, w, h)
@@ -53,9 +54,66 @@ class ventana_principal(tk.Tk):
         self.barra_superior.pack(side="top", fill="both")
 
     def menu_lateral(self):
-        """Panel izquierdo (menú lateral)"""
+        """Panel izquierdo (menú lateral) con información y enlaces"""
         self.menu_lateral = tk.Frame(self, bg=CONS_COLOR_BARRA_IZQUIERDA, width=200)
-        self.menu_lateral.pack(side="left", fill="both", expand=False)
+    #    self.menu_lateral.pack(side="left", fill="both", expand=False)
+        
+        # Título del menú
+        tk.Label(
+            self.menu_lateral, 
+            text="YTDown",
+            bg=CONS_COLOR_BARRA_IZQUIERDA, 
+            fg="white", 
+            font=("Roboto", 18, "bold")
+        ).pack(side="top", pady=20)
+        
+        # Separador
+        tk.Frame(self.menu_lateral, bg="white", height=1).pack(side="top", fill="x", padx=10)
+        
+        # Label de versión
+        tk.Label(
+            self.menu_lateral,
+            text="Versión Beta 0.1",
+            bg=CONS_COLOR_BARRA_IZQUIERDA,
+            fg="#cccccc",
+            font=("Roboto", 10)
+        ).pack(side="top", pady=10)
+        
+        # Espacio flexible
+        tk.Frame(self.menu_lateral, bg=CONS_COLOR_BARRA_IZQUIERDA).pack(side="top", expand=True)
+        
+        # Label de URL con enlace a GitHub
+        url_label = tk.Label(
+            self.menu_lateral,
+            text="GitHub",
+            bg=CONS_COLOR_BARRA_IZQUIERDA,
+            fg="#4da6ff",
+            font=("Roboto", 10, "underline"),
+            cursor="hand2"
+        )
+        url_label.pack(side="top", pady=5)
+        url_label.bind("<Button-1>", lambda e: webbrowser.open("https://github.com/ElErizoazul0123/YTDown"))
+        
+        # Separador
+        tk.Frame(self.menu_lateral, bg="white", height=1).pack(side="top", fill="x", padx=10, pady=10)
+        
+        # Firma JAcode
+        tk.Label(
+            self.menu_lateral,
+            text="Desarrollado por",
+            bg=CONS_COLOR_BARRA_IZQUIERDA,
+            fg="#999999",
+            font=("Roboto", 9)
+        ).pack(side="top")
+        
+        firma_label = tk.Label(
+            self.menu_lateral,
+            text="JAcode",
+            bg=CONS_COLOR_BARRA_IZQUIERDA,
+            fg="white",
+            font=("Roboto", 14, "bold")
+        )
+        firma_label.pack(side="top", pady=5)
 
     def cuerpo_principal(self):
         """Panel derecho (área principal de contenido)"""
@@ -76,7 +134,7 @@ class ventana_principal(tk.Tk):
                                        activeforeground="white")
         self.button_config.pack(side="left", padx=10)
 
-        self.label_titulo = tk.Label(self.barra_superior, text="YTdownload", 
+        self.label_titulo = tk.Label(self.barra_superior, text=" ", 
                                      bg=CONS_COLOR_BARRA_SUPERIOR, fg="white", 
                                      font=("Roboto", 16, "bold"))
         self.label_titulo.pack(side="left", padx=10)

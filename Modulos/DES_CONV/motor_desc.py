@@ -8,31 +8,40 @@ import Modulos.UI.util_imagenes as util_imagenes
 # ==========================================================
 # ZONA 1: CONFIGURACIÓN Y RUTAS (se ejecuta al importar)
 # ==========================================================
-
-if getattr(sys, "frozen", False):
-    RUTA_BASE = os.path.dirname(sys.executable)   
-else:
-    RUTA_BASE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import os
+import sys
+import threading
+import yt_dlp
+from tkinter import messagebox
+import Modulos.UI.util_imagenes as util_imagenes
 
 Url = ""
 carpetas = ["music", "video"]
 
+# Determina la ruta base según el modo de ejecución
 if getattr(sys, "frozen", False):
-    RUTA_BASE = getattr(sys, "_MEIPASS", os.path.dirname(sys.executable))
+    # Modo .exe (PyInstaller onedir): carpeta donde está YTDown.exe
+    RUTA_BASE = os.path.dirname(sys.executable)
 else:
-    # motor_desc.py vive en Modulos/DES_CONV/ → subimos 3 niveles a la raíz
+    # Modo desarrollo: sube 3 niveles desde motor_desc.py hasta la raíz
     RUTA_BASE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# Ruta de descargas (siempre junto al exe o en la raíz del proyecto)
 ruta_base = os.path.join(RUTA_BASE, 'descargas')
+
+# Ruta de ffmpeg (carpeta bin dentro de ffmpeg)
 FFMPEG_PATH = os.path.join(RUTA_BASE, "ffmpeg", "bin")
 
-# ffmpeg en el PATH del proceso: yt-dlp lo encontrará siempre
+# Agregar ffmpeg al PATH del sistema para que yt-dlp lo encuentre
 os.environ["PATH"] = FFMPEG_PATH + os.pathsep + os.environ.get("PATH", "")
 
+# Debug para verificar rutas
+print(f"[DEBUG] RUTA_BASE: {RUTA_BASE}")
 print(f"[DEBUG] Ruta ffmpeg: {FFMPEG_PATH}")
 print(f"[DEBUG] ffmpeg.exe existe: {os.path.isfile(os.path.join(FFMPEG_PATH, 'ffmpeg.exe'))}")
 print(f"[DEBUG] ffprobe.exe existe: {os.path.isfile(os.path.join(FFMPEG_PATH, 'ffprobe.exe'))}")
 
+# Crear carpetas de descarga si no existen
 for carpeta in carpetas:
     ruta_completa = os.path.join(ruta_base, carpeta)
     os.makedirs(ruta_completa, exist_ok=True)
