@@ -112,6 +112,10 @@ def Descargar_Video_1080p(on_progreso=None, al_terminar=None):
         'socket_timeout': 10,
         'retries': 5,
         'ffmpeg_location': FFMPEG_PATH,
+        'overwrites': False,        # No sobreescribir archivos existentes
+        'continuedl': True,         # Reanudar descargas .part si existen
+        'windowsfilenames': True,   # Nombres seguros para Windows
+        'nopart': False,            # Mantener .part (permite reanudar)
     }
     _lanzar_en_hilo(ydl_opts, on_progreso, al_terminar)
 
@@ -128,6 +132,10 @@ def Descargar_Video_720p(on_progreso=None, al_terminar=None):
         'socket_timeout': 10,
         'retries': 5,
         'ffmpeg_location': FFMPEG_PATH,
+        'overwrites': False,        # No sobreescribir archivos existentes
+        'continuedl': True,         # Reanudar descargas .part si existen
+        'windowsfilenames': True,   # Nombres seguros para Windows
+        'nopart': False,            # Mantener .part (permite reanudar)
     }
     _lanzar_en_hilo(ydl_opts, on_progreso, al_terminar)
 
@@ -144,6 +152,10 @@ def Descargar_Musica(on_progreso=None, al_terminar=None):
             'preferredquality': '192',
         }],
         'ffmpeg_location': FFMPEG_PATH,
+        'overwrites': False,        # No sobreescribir archivos existentes
+        'continuedl': True,         # Reanudar descargas .part si existen
+        'windowsfilenames': True,   # Nombres seguros para Windows
+        'nopart': False,            # Mantener .part (permite reanudar)
     }
     _lanzar_en_hilo(ydl_opts, on_progreso, al_terminar)
 
@@ -160,6 +172,10 @@ def Descargar_Musica_Caratula(on_progreso=None, al_terminar=None):
             {'key': 'EmbedThumbnail'},
         ],
         'ffmpeg_location': FFMPEG_PATH,
+        'overwrites': False,        # No sobreescribir archivos existentes
+        'continuedl': True,         # Reanudar descargas .part si existen
+        'windowsfilenames': True,   # Nombres seguros para Windows
+        'nopart': False,            # Mantener .part (permite reanudar)
     }
     _lanzar_en_hilo(ydl_opts, on_progreso, al_terminar)
 

@@ -12,3 +12,4 @@ app = ventana_principal()
 app.mainloop()
 
 
+#Version Beta 0.2

@@ -4,7 +4,8 @@ import tkinter.ttk as ttk
 import tkinter.messagebox as messagebox
 import webbrowser
 from PIL import Image, ImageTk
-from config import CONS_COLOR_BARRA_SUPERIOR, CONS_COLOR_BARRA_IZQUIERDA, CONS_COLOR_BARRA_DERECHA, CONS_COLOR_BOTON_ACTUAL, CONS_COLOR_BOTON_DESACTIVADO
+from config import (CONS_COLOR_BARRA_SUPERIOR, CONS_COLOR_BARRA_IZQUIERDA, 
+CONS_COLOR_BARRA_DERECHA, CONS_COLOR_BOTON_ACTUAL, CONS_COLOR_BOTON_DESACTIVADO, CONS_COLOR_PANEL_D_FONDO)
 import Modulos.UI.util_imagenes as util_imagenes
 import Modulos.UI.util_ventanas as util_ventanas
 import Modulos.UI.util_fuentes as util_fuentes
@@ -21,8 +22,9 @@ class ventana_principal(tk.Tk):
         super().__init__()
         
         self.logo = util_imagenes.cargar_imagen("Recursos/imagenes/arch-linux.png", (100, 100))
-        ruta_fuent = r"Recursos\fuentes\Font Awesome 7 Free-Regular-400.otf"
-        util_fuentes.cargar_fuente_personalizada(ruta_fuent)
+        util_fuentes.cargar_fuente_personalizada(r"Recursos\fuentes\Font Awesome 7 Free-Solid-900.otf")
+        util_fuentes.cargar_fuente_personalizada(r"Recursos\fuentes\Font Awesome 7 Free-Regular-400.otf")
+        util_fuentes.cargar_fuente_personalizada(r"Recursos\fuentes\Font Awesome 7 Brands-Regular-400.otf")
 
         self.configurar_ventana()
         self.paneles()
@@ -73,7 +75,7 @@ class ventana_principal(tk.Tk):
         # Label de versión
         tk.Label(
             self.menu_lateral,
-            text="Versión Beta 0.1",
+            text="Versión Beta 0.2",
             bg=CONS_COLOR_BARRA_IZQUIERDA,
             fg="#cccccc",
             font=("Roboto", 10)
@@ -125,9 +127,9 @@ class ventana_principal(tk.Tk):
     # ================================================================
     def elementos_barra_superior(self): 
         """Botón de configuración y título"""
-        font_awesome = font.Font(family="FontAwesome", size=16)
+        font_awesome = font.Font(family="Font Awesome 7 Free Solid", size=16)
 
-        self.button_config = tk.Button(self.barra_superior, text="\u2699", font=font_awesome, 
+        self.button_config = tk.Button(self.barra_superior, text="\uf013", font=font_awesome, 
                                        bg=CONS_COLOR_BARRA_SUPERIOR, command=self.toggle_menu, 
                                        fg="white", borderwidth=0, 
                                        activebackground=CONS_COLOR_BARRA_SUPERIOR, 
@@ -148,7 +150,7 @@ class ventana_principal(tk.Tk):
     # ================================================================
     def elementos_cuerpo_principal(self):
         """Pestañas Music/Video y contenedores de mitades"""
-        font_awesome = font.Font(family="FontAwesome", size=16)
+        font_awesome = font.Font(family="Font Awesome 7 Free Solid", size=16)
 
         # Contenedor para pestañas de modo
         self.cont_buttons_media = tk.Frame(self.cuerpo_principal) 
@@ -157,7 +159,7 @@ class ventana_principal(tk.Tk):
         # Pestaña MUSIC
         self.boton_menu_music = tk.Button(
             self.cont_buttons_media, bg=CONS_COLOR_BOTON_ACTUAL, fg="white",
-            font=font_awesome, text="Music", borderwidth=0,
+            font=font_awesome, text="Music "+"\uf001", borderwidth=0,
             command=lambda: self.cambiar_modo("music"))
         self.boton_menu_music.pack(side="left", expand=True, fill="both")
 
@@ -178,10 +180,10 @@ class ventana_principal(tk.Tk):
 
     def prev_info_descarga(self):
         """Sección izquierda: carátula, URL, botones de descarga y barra de progreso"""
-        etiqueta_cancion = tk.Label(self.cont_mitad_izquierda, text="Cancion:", 
+        etiqueta_media = tk.Label(self.cont_mitad_izquierda, text="Media : ", 
                                     bg=CONS_COLOR_BARRA_DERECHA, fg="white", 
-                                    font=("Roboto", 14))
-        etiqueta_cancion.pack(side="top", pady=10)
+                                    font=("Roboto", 13, "bold"))
+        etiqueta_media.pack(side="top", pady=10)
 
         # Carátula del video/música
         self.etiqueta_caratula = tk.Label(self.cont_mitad_izquierda, image=None, 
@@ -240,19 +242,19 @@ class ventana_principal(tk.Tk):
         self.barra_progreso.set(0)
 
     # ================================================================
-    # COLA DE DESCARGAS (PANEL GRIS)
+    # COLA DE DESCARGAS
     # ================================================================
     def cola_de_descarga(self):
         """Panel derecho: lista visual de tareas en cola"""
-        self.cola_de_descarga = tk.Frame(self.cont_mitad_derecha, bg="gray", height=100)
+        self.cola_de_descarga = tk.Frame(self.cont_mitad_derecha, bg="#854B99", height=100)
         self.cola_de_descarga.pack(side="top", fill="both", expand=True)
 
         # Título del panel
-        tk.Label(self.cola_de_descarga, text="Cola de descargas",
-                 bg="gray", fg="white", font=("Roboto", 12, "bold")).pack(side="top", pady=5)
+        tk.Label(self.cola_de_descarga, text="Cola de descargas : ",
+                 bg="#854B99", fg="white", font=("Roboto", 12, "bold")).pack(side="top", pady=5)
 
         # Lista visual de tareas
-        self.lista_cola = tk.Listbox(self.cola_de_descarga, bg="#2b2b2b", fg="white",
+        self.lista_cola = tk.Listbox(self.cola_de_descarga, bg=CONS_COLOR_PANEL_D_FONDO, fg="white",
                                      relief="flat", selectbackground="#555")
         self.lista_cola.pack(side="top", fill="both", expand=True, padx=8, pady=5)
 
