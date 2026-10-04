@@ -12,6 +12,7 @@ dist/
 
 # ===== Datos de ejecución de la app =====
 descargas/
+config_usuario.json
 
 # ===== Binarios de FFmpeg (pesados; se instalan con setup_ffmpeg.bat) =====
 ffmpeg/

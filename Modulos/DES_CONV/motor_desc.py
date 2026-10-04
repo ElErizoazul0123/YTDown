@@ -1,4 +1,5 @@
 import os
+import json
 import sys
 import threading
 import yt_dlp
@@ -191,3 +192,42 @@ def process_boton_descarga(entry_widget):
 
     imagen_activa = util_imagenes.caratula_imagen(Url_local, (300, 200))
     return imagen_activa, Url_local
+
+# ==========================================================
+# CONFIGURACIÓN DE USUARIO (persistente en JSON)
+# ==========================================================
+CONFIG_USUARIO = os.path.join(RUTA_BASE, "config_usuario.json")
+RUTA_DESCARGAS_DEFECTO = os.path.join(RUTA_BASE, "descargas")
+
+
+def _leer_config_usuario():
+    """Lee el JSON de configuración. Devuelve dict vacío si no existe."""
+    if os.path.isfile(CONFIG_USUARIO):
+        try:
+            with open(CONFIG_USUARIO, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"[CONFIG] Error leyendo config: {e}")
+    return {}
+
+
+def _escribir_config_usuario(datos):
+    """Guarda el dict de configuración en JSON."""
+    try:
+        with open(CONFIG_USUARIO, "w", encoding="utf-8") as f:
+            json.dump(datos, f, indent=4, ensure_ascii=False)
+    except Exception as e:
+        print(f"[CONFIG] Error escribiendo config: {e}")
+
+
+def get_ruta_descargas():
+    """Devuelve la ruta de descargas guardada o la predeterminada."""
+    return _leer_config_usuario().get("ruta_descargas", RUTA_DESCARGAS_DEFECTO)
+
+
+def set_ruta_descargas(nueva_ruta):
+    """Guarda la nueva ruta de descargas en el JSON."""
+    datos = _leer_config_usuario()
+    datos["ruta_descargas"] = nueva_ruta
+    _escribir_config_usuario(datos)
+    print(f"[CONFIG] Ruta guardada: {nueva_ruta}")
